@@ -4,35 +4,33 @@ const form = document.querySelector('.feedback-form');
 const email = document.querySelector('[type="email"]');
 const textarea = document.querySelector('textarea');
 
-const inputObj = {
-  email: '',
-  message: '',
-};
+const INPUT_INFO = 'feedback-form-state';
 
-form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onFormInput, 500));
+form.addEventListener('submit', onFormSubmit);
 
 onDataInInput();
+
+function onFormInput() {
+  const inputObj = {
+    email: form.email.value,
+    message: form.message.value,
+  };
+
+  localStorage.setItem(INPUT_INFO, JSON.stringify(inputObj));
+}
 
 function onFormSubmit(e) {
   e.preventDefault();
 
-  console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+  console.log(JSON.parse(localStorage.getItem(INPUT_INFO)));
 
   e.target.reset();
-  localStorage.removeItem('feedback-form-state');
-}
-
-function onFormInput(e) {
-  inputObj[e.target.name] = e.target.value;
-
-  localStorage.setItem('feedback-form-state', JSON.stringify(inputObj));
+  localStorage.removeItem(INPUT_INFO);
 }
 
 function onDataInInput() {
-  const objOfSavedData = JSON.parse(
-    localStorage.getItem('feedback-form-state')
-  );
+  const objOfSavedData = JSON.parse(localStorage.getItem(INPUT_INFO));
   if (objOfSavedData) {
     email.value = objOfSavedData.email;
     textarea.value = objOfSavedData.message;
