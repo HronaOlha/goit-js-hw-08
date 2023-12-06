@@ -1,99 +1,65 @@
-# Parcel template
+# goit-js-hw-08
 
-Этот проект был создан при помощи Parcel. Для знакомства и настройки
-дополнительных возможностей [обратись к документации](https://parceljs.org/).
+## Tasks
 
-## Подготовка нового проекта
+### 1. Task 1 SimpleLightbox library
+   
+Perform this task in files 01-gallery.html and 01-gallery.js. Break it down into several subtasks:
+- Add the SimpleLightbox library as a project dependency using npm (the CDN link from your previous work is no longer needed).
+- Use your JavaScript code from the previous homework, but refactor it to take into account that the library was installed via npm (import/export syntax).
 
-1. Убедись что на компьютере установлена LTS-версия Node.js.
-   [Скачай и установи](https://nodejs.org/en/) её если необходимо.
-2. Склонируй этот репозиторий.
-3. Измени имя папки с `parcel-project-template` на имя своего проекта.
-4. Создай новый пустой репозиторий на GitHub.
-5. Открой проект в VSCode, запусти терминал и свяжи проект с GitHub-репозиторием
-   [по инструкции](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#changing-a-remote-repositorys-url).
-6. Установи зависимости проекта в терминале командой `npm install` .
-7. Запусти режим разработки, выполнив команду `npm start`.
-8. Перейди в браузере по адресу [http://localhost:1234](http://localhost:1234).
-   Эта страница будет автоматически перезагружаться после сохранения изменений в
-   файлах проекта.
-
-## Файлы и папки
-
-- Все паршалы файлов стилей должны лежать в папке `src/sass` и импортироваться в
-  файлы стилей страниц. Например, для `index.html` файл стилей называется
-  `index.scss`.
-- Изображения добавляй в папку `src/images`. Сборщик оптимизирует их, но только
-  при деплое продакшн версии проекта. Все это происходит в облаке, чтобы не
-  нагружать твой компьютер, так как на слабых машинах это может занять много
-  времени.
-
-## Деплой
-
-Для настройки деплоя проекта необходимо выполнить несколько дополнительных шагов
-по настройке твоего репозитория. Зайди во вкладку `Settings` и в подсекции
-`Actions` выбери выбери пункт `General`.
-
-![GitHub actions settings](./assets/actions-config-step-1.png)
-
-Пролистай страницу до последней секции, в которой убедись что выбраны опции как
-на следующем изображении и нажми `Save`. Без этих настроек у сборки будет
-недостаточно прав для автоматизации процесса деплоя.
-
-![GitHub actions settings](./assets/actions-config-step-2.png)
-
-Продакшн версия проекта будет автоматически собираться и деплоиться на GitHub
-Pages, в ветку `gh-pages`, каждый раз когда обновляется ветка `main`. Например,
-после прямого пуша или принятого пул-реквеста. Для этого необходимо в файле
-`package.json` отредактировать поле `homepage` и скрипт `build`, заменив
-`your_username` и `your_repo_name` на свои, и отправить изменения на GitHub.
-
-```json
-"homepage": "https://your_username.github.io/your_repo_name/",
-"scripts": {
-  "build": "parcel build src/*.html --public-url /your_repo_name/"
-},
+In order to connect the CSS code of the library to the project, it is necessary to add one more import, in addition to the one described in the documentation.
+```javascript
+// Described in the documentation
+import SimpleLightbox from "simplelightbox";
+// Additional import of styles
+import "simplelightbox/dist/simple-lightbox.min.css";
 ```
 
-Далее необходимо зайти в настройки GitHub-репозитория (`Settings` > `Pages`) и
-выставить раздачу продакшн версии файлов из папки `/root` ветки `gh-pages`, если
-это небыло сделано автоматически.
+### 2. Task 2 Video player
 
-![GitHub Pages settings](./assets/repo-settings.png)
+The HTML contains an <iframe> with a video for the Vimeo player. Write a script that will save the current video playback time to local storage and, after reloading the page, continue playing the video from that time.
+```javascript
+<iframe
+   id="vimeo-player"
+   src="https://player.vimeo.com/video/236203659"
+   width="640"
+   height="360"
+   frameborder="0"
+   allowfullscreen
+   allow="autoplay; encrypted-media"
+></iframe>
+```
 
-### Статус деплоя
+Perform this task in the files 02-video.html and 02-video.js. Break it down into several subtasks:
+- Check out the Vimeo player library documentation.
+- Add the library as a project dependency via npm.
+- Initialize the player in the script file as described in the pre-existing player section, but note that you have the player added as an npm package, not via CDN.
+- Study the documentation of the on() method and start monitoring the timeupdate event - the playback time update.
+- Save playback time to local storage. Let the key for the repository be the string "videoplayer-current-time".
+- When reloading the page, use the setCurrentTime() method to resume playback from the saved position.
+- Add the lodash.throttle library to the project and make the playback time update in the repository no more than once per second.
+  
+### 3. Task 3 Feedback form
 
-Статус деплоя крайнего коммита отображается иконкой возле его идентификатора.
+HTML contains form markup. Write a script that will save field values to local storage when the user types something.
 
-- **Желтый цвет** - выполняется сборка и деплой проекта.
-- **Зеленый цвет** - деплой завершился успешно.
-- **Красный цвет** - во время линтинга, сборки или деплоя произошла ошибка.
+```html
+<form class="feedback-form" autocomplete="off">
+   <label>
+     Email
+     <input type="email" name="email" autofocus />
+   </label>
+   <label>
+     Message
+     <textarea name="message" rows="8"></textarea>
+   </label>
+   <button type="submit">Submit</button>
+</form>
+```
 
-Более детальную информацию о статусе можно посмотреть кликнув по иконке, и в
-выпадающем окне перейти по ссылке `Details`.
-
-![Deployment status](./assets/status.png)
-
-### Живая страница
-
-Через какое-то время, обычно пару минут, живую страницу можно будет посмотреть
-по адресу указанному в отредактированном свойстве `homepage`. Например, вот
-ссылка на живую версию для этого репозитория
-[https://goitacademy.github.io/parcel-project-template](https://goitacademy.github.io/parcel-project-template).
-
-Если открывается пустая страница, убедись что во вкладке `Console` нет ошибок
-связанных с неправильными путями к CSS и JS файлам проекта (**404**). Скорее
-всего у тебя неправильное значение свойства `homepage` или скрипта `build` в
-файле `package.json`.
-
-## Как это работает
-
-![How it works](./assets/how-it-works.png)
-
-1. После каждого пуша в ветку `main` GitHub-репозитория, запускается специальный
-   скрипт (GitHub Action) из файла `.github/workflows/deploy.yml`.
-2. Все файлы репозитория копируются на сервер, где проект инициализируется и
-   проходит сборку перед деплоем.
-3. Если все шаги прошли успешно, собранная продакшн версия файлов проекта
-   отправляется в ветку `gh-pages`. В противном случае, в логе выполнения
-   скрипта будет указано в чем проблема.
+Perform this task in the files 03-feedback.html and 03-feedback.js. Break it down into several subtasks:
+- Track the input event on the form, and each time write an object with the email and message fields to the local storage, in which you store the current values of the form fields. Let the key for the repository be the string "feedback-form-state".
+- When loading the page, check the status of the storage, and if there is data saved there, fill the form fields with it. Otherwise, the fields should be left blank.
+- When submitting the form, clear the storage and form fields, and output to the console an object with the email, message fields and their current values.
+- Make sure that the repository is updated no more often than once every 500 milliseconds. To do this, add to the project and use the lodash.throttle library.
